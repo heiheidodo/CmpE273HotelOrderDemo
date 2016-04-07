@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/bootstrap.css' />
+    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
+    <link rel='stylesheet' href='/stylesheets/bootstrap-theme.css' />
+    <link rel='stylesheet' href='/stylesheets/bootstrap-theme.min.css' />
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <style>
+        body         { padding-top:50px; }
+        form         { margin-bottom:50px; }
+    </style>
+    
+    <head><title>Hotel Order Demo</title></head>
+    <body ng-app="myApp" ng-controller="myCtrl">
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+    <h2>Hotel Order Menu: </h2>
+
+    <form name="myForm">
+        <div ng-repeat="menu in menus">
+            <div class="form-group">
+                <input id="{{menu.name}}" type="checkbox" value="{{menu.price}}" ng-checked="selection.indexOf(menu.name) > -1" ng-click="toggleSelection(menu.name)" />
+                <label for="{{menu.name}}"></label>
+                {{menu.name}}
+            </div>
+        </div>
+        <label>BreakFast: </label>
+        <div class="form-group">
+            <label class="checkbox-inline">
+                <input type="checkbox" name="Fruit Parfait" value="7" ng-model="formData.breakfast.fruit"> Fruit Parfait | $7.00
+            </label>
+            <label class="checkbox-inline">
+                <input type="checkbox" name="breakfast" value="5" ng-model="formData.breakfast.oatmeal"> Cream of the West 7-Grain Oatmeal | $5.00
+            </label>
+            <label class="checkbox-inline">
+                <input type="checkbox" name="breakfast" value="9" ng-model="formData.breakfast.toast"> Hurts Donut French Toast | $9.00
+            </label>
+        </div>
+        <label>Lunch: </label>
+        <div class="form-group">
+            <label class="checkbox-inline">
+                <input type="checkbox" name="lunch" value="13" ng-model="formData.lunch.dip"> Short Order Dip | $13.00
+            </label>
+            <label class="checkbox-inline">
+                <input type="checkbox" name="lunch" value="11" ng-model="formData.lunch.trois"> Grilled Fromage a Trois | $11.00
+            </label>
+            <label class="checkbox-inline">
+                <input type="checkbox" name="lunch" value="10" ng-model="formData.lunch.sandwich"> Grilled Chicken Breast Sandwich | $10.00
+            </label>
+        </div>
+        <label>Dinner: </label>
+        <div class="form-group">
+            <label class="checkbox-inline">
+                <input type="checkbox" name="dinner" value="27" ng-model="formData.dinner.breast"> Seared Duck Breast | $27.00
+            </label>
+            <label class="checkbox-inline">
+                <input type="checkbox" name="dinner" value="21" ng-model="formData.dinner.chicken"> Cast Iron Crispy Skin Chicken | $21.00
+            </label>
+            <label class="checkbox-inline">
+                <input type="checkbox" name="dinner" value="15" ng-model="formData.dinner.veggie"> Veggie Lasagna | $15.00
+            </label>
+        </div>
+        <br>
+        <br>
+        <button ng-click='submit()' class="btn btn-danger btn-lg">Place Order!</button>
+        
+    </form>
+    <pre>
+        {{ formData }}
+    </pre>    
+    <h2>Customer Order: </h2>
+    <div>
+        <br><label>Order List: </label> {{ order }}
+        <br><label>Total Cost: </label> {{ cost }} 
+        <br><label>Number Ordered: </label> {{ number }}
+            <div class="selected-items-panel">
+    <span class="selected-item">Selected Items:<span>
+        <div ng-repeat="name in selection" class="selected-item">
+        {{name}}
+        </div>
+    </div>
+    </div>
+    
+    </div>
+ 
+    <script>
+       var order = angular.module('myApp', []);
+       order.controller('myCtrl',function($scope) {
+            $scope.formData = {};
+            $scope.number = 0;
+                        
+            $scope.menus=[{name:'A', price: 10},
+                            {name:'Jessie', price:20}];
+           
+                $scope.selection=[];   
+            $scope.submit = function()
+            {   
+                              
+                $scope.toggleSelection = function toggleSelection(employeeName) {
+                var idx = $scope.selection.indexOf(employeeName);
+
+                if (idx > -1) {
+                    $scope.selection.splice(idx, 1);
+                 }
+                else {
+                    $scope.selection.push(employeeName);
+                }              
+             };
+
+           }; 
+        });
+
+    </script>
+    </body>
+</html>

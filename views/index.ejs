@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/bootstrap.css' />
+    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
+    <link rel='stylesheet' href='/stylesheets/bootstrap-theme.css' />
+    <link rel='stylesheet' href='/stylesheets/bootstrap-theme.min.css' />
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <style>
+        body         { padding-top:50px; }
+        form         { margin-bottom:50px; }
+    </style>
+    
+    <head><title>Hotel Order Demo</title></head>
+    <body ng-app="myApp" ng-controller="myCtrl">
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+    <h2>Hotel Order Menu: </h2>
+
+    <form name="myForm">
+        <label>BreakFast: </label>
+        <div class="form-group">
+            <label class="checkbox-inline">
+                <input type="checkbox" name="Fruit Parfait" ng-click='addItem(7, "Fruit Parfait | $7.00")' value="7" ng-model="formData.breakfast.fruit"> Fruit Parfait | $7.00
+            </label>
+            <label class="checkbox-inline">
+                <input type="checkbox" name="breakfast" ng-click='addItem(5, "Cream of the West 7-Grain Oatmeal | $5.00")' value="5" ng-model="formData.breakfast.oatmeal"> Cream of the West 7-Grain Oatmeal | $5.00
+            </label>
+            <label class="checkbox-inline">
+                <input type="checkbox" name="breakfast" ng-click='addItem(9, "Hurts Donut French Toast | $9.00")' value="9" ng-model="formData.breakfast.toast"> Hurts Donut French Toast | $9.00
+            </label>
+        </div>
+        <label>Lunch: </label>
+        <div class="form-group">
+            <label class="checkbox-inline">
+                <input type="checkbox" name="lunch" ng-click='addItem(13, "Short Order Dip | $13.00")' value="13" ng-model="formData.lunch.dip"> Short Order Dip | $13.00
+            </label>
+            <label class="checkbox-inline">
+                <input type="checkbox" name="lunch" ng-click='addItem(11, "Grilled Fromage a Trois | $11.00")' value="11" ng-model="formData.lunch.trois"> Grilled Fromage a Trois | $11.00
+            </label>
+            <label class="checkbox-inline">
+                <input type="checkbox" name="lunch" ng-click='addItem(10, "Grilled Chicken Breast Sandwich | $10.00")' value="10" ng-model="formData.lunch.sandwich"> Grilled Chicken Breast Sandwich | $10.00
+            </label>
+        </div>
+        <label>Dinner: </label>
+        <div class="form-group">
+            <label class="checkbox-inline">
+                <input type="checkbox" name="dinner" ng-click='addItem(27, "Seared Duck Breast | $27.00")' value="27" ng-model="formData.dinner.breast"> Seared Duck Breast | $27.00
+            </label>
+            <label class="checkbox-inline">
+                <input type="checkbox" name="dinner" ng-click='addItem(21, "Cast Iron Crispy Skin Chicken | $21.00")' value="21" ng-model="formData.dinner.chicken"> Cast Iron Crispy Skin Chicken | $21.00
+            </label>
+            <label class="checkbox-inline">
+                <input type="checkbox" name="dinner" ng-click='addItem(15, "Veggie Lasagna | $15.00")' value="15" ng-model="formData.dinner.veggie"> Veggie Lasagna | $15.00
+            </label>
+        </div>
+        <label>Room Selection: </label>
+        <div class="form-group">
+            <label class="checkbox-inline">
+                <input type="checkbox" name="room" ng-click='addItem(115, "Club Room: 2 Queen Beds | $115.00")' value="115" ng-model="formData.room.queen"> Club Room: 2 Queen Beds | $115.00
+            </label>
+            <label class="checkbox-inline">
+                <input type="checkbox" name="room" ng-click='addItem(179, "Deluxe Balcony: King Bed | $179.00")' value="179" ng-model="formData.room.balcony"> Deluxe Balcony: King Bed | $179.00
+            </label>
+            <label class="checkbox-inline">
+                <input type="checkbox" name="room" ng-click='addItem(389, "Premium Suit: King Bed | $389.00")' value="389" ng-model="formData.room.suit"> Premium Suit: King Bed | $389.00
+            </label>
+        </div>
+        <br>
+        <br>
+        <button ng-click='submit()' class="btn btn-danger btn-lg">Place Order!</button>
+        
+    </form>
+    <pre>
+        {{ formData }}
+    </pre>    
+    <h2>{{ out }} </h2>
+    <div>    
+        <label>{{ number }} </label><br>
+        <label>{{ cost }}  </label><br>      
+        <label>{{ order }} </label><br>
+    </div>
+    
+    </div>
+ 
+    <script>
+       var order = angular.module('myApp', []);
+       order.controller('myCtrl',function($scope) {
+            $scope.number = null;
+            $scope.cost = null;
+            $scope.order = null;
+            var costs = 0;
+            var numbers = 0;
+            var orders = "";
+            $scope.out = "";
+            
+            $scope.addItem = function(button, name)
+            {
+                costs += button * 1;
+                numbers += 1;
+                orders += String(name) + " ";
+            };
+            
+            $scope.submit = function()
+            {
+                $scope.out = "Customer Order Receipt: ";
+                $scope.number = "Number of Items: " + numbers;
+                $scope.order = "Order Lists: " + orders;
+                $scope.cost = "Total Costs: $" + costs;
+            };
+        });
+
+    </script>
+    </body>
+</html>
